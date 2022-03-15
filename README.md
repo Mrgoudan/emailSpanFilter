@@ -1,1 +1,1 @@
-# emailSpanFilter
+# emailSpamFilter
