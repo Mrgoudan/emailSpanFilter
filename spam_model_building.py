@@ -15,7 +15,7 @@ mails.drop(['labels'], axis = 1, inplace = True)
 totalMails = 4825 + 747
 trainIndex, testIndex = list(), list()
 for i in range(mails.shape[0]):
-    if np.random.uniform(0, 1) < 0.75:
+    if np.random.uniform(0, 1) < 0.90:
         trainIndex += [i]
     else:
         testIndex += [i]
@@ -28,22 +28,22 @@ testData.drop(['index'], axis = 1, inplace = True)
 # print(trainData['label'].value_counts())
 # print(testData['label'].value_counts())
 spam_words = ' '.join(list(mails[mails['label'] == 1]['message']))
-spam_wc = WordCloud(width = 512,height = 512).generate(spam_words)
-plt.figure(figsize = (10, 8), facecolor = 'k')
-plt.imshow(spam_wc)
-plt.axis('off')
-plt.tight_layout(pad = 0)
-plt.savefig('spam.png')
-ham_words = ' '.join(list(mails[mails['label'] == 0]['message']))
-ham_wc = WordCloud(width = 512,height = 512).generate(ham_words)
-plt.figure(figsize = (10, 8), facecolor = 'k')
-plt.imshow(ham_wc)
-plt.axis('off')
-plt.tight_layout(pad = 0)
-plt.savefig('ham.png')
+# spam_wc = WordCloud(width = 512,height = 512).generate(spam_words)
+# plt.figure(figsize = (10, 8), facecolor = 'k')
+# plt.imshow(spam_wc)
+# plt.axis('off')
+# plt.tight_layout(pad = 0)
+# plt.savefig('spam.png')
+# ham_words = ' '.join(list(mails[mails['label'] == 0]['message']))
+# ham_wc = WordCloud(width = 512,height = 512).generate(ham_words)
+# plt.figure(figsize = (10, 8), facecolor = 'k')
+# plt.imshow(ham_wc)
+# plt.axis('off')
+# plt.tight_layout(pad = 0)
+# plt.savefig('ham.png')
 
 
-def process_message(message, lower_case = True, stem = True, stop_words = True, gram = 2):
+def process_message(message, lower_case = True, stem = True, stop_words = True, gram = 3):
     if lower_case:
         message = message.lower()
     words = word_tokenize(message)
@@ -52,6 +52,7 @@ def process_message(message, lower_case = True, stem = True, stop_words = True, 
         w = []
         for i in range(len(words) - gram + 1):
             w += [' '.join(words[i:i + gram])]
+
         return w
     if stop_words:
         sw = stopwords.words('english')
