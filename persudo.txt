@@ -1,0 +1,14 @@
+def classify:
+    pSpam, pHam = 0
+    for word in processed_message:                
+        if word in self.prob_spam:
+            pSpam += log(self.prob_spam[word])
+        else:
+            pSpam -= log(self.sum_tf_idf_spam + len(list(self.prob_spam.keys())))
+        if word in self.prob_ham:
+            pHam += log(self.prob_ham[word])
+        else:
+            pHam -= log(self.sum_tf_idf_ham + len(list(self.prob_ham.keys())))  
+        pSpam += log(self.prob_spam_mail)
+        pHam += log(self.prob_ham_mail)
+    return pSpam >= pHam
